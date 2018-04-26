@@ -1,0 +1,90 @@
+service: restfull-api-lambda
+
+plugins:
+  - serverless-offline
+  - serverless-plugin-tracing
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: us-east-1
+  stage: v1
+  tracing: true
+  deploymentBucket: ${env:DEPLOYMENT_BUCKET}
+  iamRoleStatements:
+  - Effect: Allow
+    Action: 
+      - dynamodb:*
+      - xray:*
+    Resource: "*"
+
+functions:
+  getAllByUserId:
+    name: restfull-api-notes-getAllByUserId-${self:provider.stage}
+    handler: src/handler.getAllByUserId
+    description: Function to get all notes
+    timeout: 30
+    memorySize: 128
+    events:
+      - http:
+          method: GET
+          path: notes
+          cors: true
+
+  getByUserIdAndId:
+    name: restfull-api-notes-getByUserIdAndId-${self:provider.stage}
+    handler: src/handler.getByUserIdAndId
+    description: Function to get a note by useId and id
+    timeout: 30
+    memorySize: 128
+    events:
+      - http:
+          method: GET
+          path: notes/{id}
+          cors: true
+
+  create:
+    name: restfull-api-note-create-${self:provider.stage}
+    handler: src/handler.create
+    description: Function to create a notes
+    memorySize: 128
+    timeout: 30
+    events:
+      - http:
+          method: POST
+          path: notes
+          cors: true
+
+  update:
+    name: restfull-api-note-update-${self:provider.stage}
+    handler: src/handler.update
+    description: Function to update a notes
+    memorySize: 128
+    timeout: 30
+    events:
+      - http:
+          method: PUT
+          path: notes/{id}
+          cors: true
+
+  remove:
+    name: restfull-api-note-remove-${self:provider.stage}
+    handler: src/handler.remove
+    description: Function to remove a notes
+    memorySize: 128
+    timeout: 30
+    events:
+      - http:
+          method: DELETE
+          path: notes/{id}
+          cors: true
+
+custom:
+  stage: "${opt:stage, self:provider.stage}"
+
+resources:
+  Resources:
+    ApiGatewayRestApi:
+      Type: AWS::ApiGateway::RestApi
+      Properties:
+        Name: ${self:service}-${self:custom.stage}

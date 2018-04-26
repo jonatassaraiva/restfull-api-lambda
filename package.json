@@ -1,0 +1,28 @@
+{
+  "name": "restfull-api-lambda",
+  "version": "1.0.0",
+  "description": "Repository to restfull api",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonatassaraiva/restfull-api-lambda.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jonatassaraiva/restfull-api-lambda/issues"
+  },
+  "homepage": "https://github.com/jonatassaraiva/restfull-api-lambda#readme",
+  "scripts": {
+    "start:debug": "NODE_ENV=debug node ./node_modules/.bin/sls offline start --port=3001"
+  },
+  "dependencies": {
+    "dynamoose": "^0.8.7",
+    "uuid": "^3.2.1"
+  },
+  "devDependencies": {
+    "dotenv": "^5.0.1",
+    "serverless": "^1.26.1",
+    "serverless-offline": "^3.20.3",
+    "serverless-plugin-tracing": "^2.0.0"
+  }
+}
