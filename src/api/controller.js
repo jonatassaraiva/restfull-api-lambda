@@ -1,6 +1,7 @@
 'use strict';
 
 const NotesModel = require('./model');
+const bodyParser = require('../helpers/body.parser');
 
 const _getByUserIdAndId = (userId, id) => {
   return NotesModel.get({ userId, id })
@@ -38,18 +39,17 @@ const getByUserIdAndId = (req) => {
 const create = (req) => {
   const userId = req.headers['x-user-id'];
 
-  const bodyJSON = JSON.parse(req.body);
+  const bodyJSON = bodyParser.parse(req);
   const { title, content } = bodyJSON;
-  return NotesModel.create({ userId, title, content, test});
+  return NotesModel.create({ userId, title, content});
 };
 
 const update = (req) => {
   const userId = req.headers['x-user-id'];
   const id = req.pathParameters.id;
 
-  const bodyJSON = JSON.parse(req.body);
+  const bodyJSON = bodyParser.parse(req);
   const { title, content } = bodyJSON;
-
   return _getByUserIdAndId(userId, id)
     .then(() => {
       return NotesModel.update({ userId, id }, { title, content });
