@@ -22,7 +22,7 @@
   "devDependencies": {
     "dotenv": "^5.0.1",
     "serverless": "^1.26.1",
-    "serverless-offline": "^3.20.3",
+    "serverless-offline": "^3.25.4",
     "serverless-plugin-tracing": "^2.0.0"
   }
 }

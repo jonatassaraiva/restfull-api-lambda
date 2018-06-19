@@ -40,8 +40,7 @@ const create = (req) => {
 
   const bodyJSON = JSON.parse(req.body);
   const { title, content } = bodyJSON;
-
-  return NotesModel.create({ userId, title, content });
+  return NotesModel.create({ userId, title, content, test});
 };
 
 const update = (req) => {

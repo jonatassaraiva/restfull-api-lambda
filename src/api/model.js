@@ -15,7 +15,7 @@ const NotesSchema = new dynamoose.Schema({
   },
   title: String,
   content: String
-}, { timestamps: true });
+}, { timestamps: true, useDocumentTypes: true, useNativeBooleans: true, saveUnknown: true });
 
 
-module.exports = dynamoose.model('notes-restfull', NotesSchema);
+module.exports = dynamoose.model('notes-restfull', NotesSchema, { waitForActive: false });
