@@ -21,7 +21,7 @@ const _createErrorResponse = (error, requestId) => {
   let statusCode = error.statusCode || 500;
   const body = {
     error: {
-      code: `error-${statusCode}`,
+      code: `custom-${statusCode}`,
       message: error.message
     },
     requestId
